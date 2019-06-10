@@ -26,6 +26,8 @@ $ cmake -D OPENCV_EXTRA_MODULES_PATH=<opencv_contrib>/modules -D BUILD_opencv_<r
 
 - **dnns_easily_fooled**: Subvert DNNs -- This code can use the activations in a network to fool the networks into recognizing something else.
 
+- **dnn_superres**: Super Resolution using CNNs -- Implements several learning-based super resolution algorithms.
+
 - **dpm**: Deformable Part Model -- Felzenszwalb's Cascade with deformable parts object recognition code.
 
 - **face**: Face Recognition -- Face recognition techniques: Eigen, Fisher and Local Binary Pattern Histograms LBPH methods.
