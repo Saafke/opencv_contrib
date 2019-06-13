@@ -1,6 +1,6 @@
 # Super Resolution using Convolutional Neural Networks
 
-This module uses contains several learning-based algorithms for upscaling an image.
+This module contains several learning-based algorithms for upscaling an image.
 
 ## Dependencies
 - 
@@ -16,7 +16,7 @@ cmake -DOPENCV_EXTRA_MODULES_PATH=<opencv_contrib>/modules -Dopencv_dnn_superres
 
 ## Models
 
-There are four models which are trained.
+There are four models which are trained. (Not yet implemented!!)
 
 #### EDSR
 

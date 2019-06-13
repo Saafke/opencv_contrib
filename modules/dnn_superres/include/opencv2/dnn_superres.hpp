@@ -2,11 +2,12 @@
 // It is subject to the license terms in the LICENSE file found in the top-level directory
 // of this distribution and at http://opencv.org/license.html.
 
-#ifndef _OPENCV_DNN_SUPERRES_DNN_SUPERRESIMP_HPP_
-#define _OPENCV_DNN_SUPERRES_DNN_SUPERRESIMP_HPP_
+#ifndef _OPENCV_DNN_SUPERRES_DNNSUPERRESIMPL_HPP_
+#define _OPENCV_DNN_SUPERRES_DNNSUPERRESIMPL_HPP_
 
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
+#include "opencv2/dnn.hpp"
 
 /** @defgroup dnn_superres DNN used for super resolution
 */
@@ -19,11 +20,18 @@ namespace cv
         {
             //! @addtogroup dnn_superres
             //! @{
-            class CV_EXPORTS Dnn_SuperResImp
-            {
+            class CV_EXPORTS DnnSuperResImpl
+            {   
+                private:
+                    Net net;
+                
                 public:
-                    Dnn_SuperResImp();
-                    Mat upsample(Mat img, std::string algo, int scale);
+                    DnnSuperResImpl();
+                    DnnSuperResImpl(std::string algo);
+                    void setModel(std::string algo);
+                    Mat upsample(Mat img, int scale);
+                    Mat upsampleBilinear(Mat img, int scale);
+                    Mat upsampleBicubic(Mat img, int scale);
             };
             //! @}
         }
