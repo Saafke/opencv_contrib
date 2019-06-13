@@ -10,6 +10,17 @@
 #include "opencv2/dnn.hpp"
 
 /** @defgroup dnn_superres DNN used for super resolution
+
+This class contains functionality for upscaling an image via convolutional neural networks.
+The following four models are implemented:
+
+- EDSR
+- ESPCN
+- FSRCNN
+- LapSRN
+
+There is also functionality for simply upscaling by bilinear or bicubic interpolation.
+
 */
 
 namespace cv
@@ -19,7 +30,13 @@ namespace dnn_superres
     //! @addtogroup dnn_superres
     //! @{
 
-    /** @brief A class to upscale images via convolutional neural networks
+    /** @brief A class to upscale images via convolutional neural networks.
+    The following four models are implemented:
+
+    - edsr
+    - espcn
+    - fsrcnn
+    - lapsrn
      */
     class CV_EXPORTS DnnSuperResImpl
     {   
@@ -34,12 +51,20 @@ namespace dnn_superres
             DnnSuperResImpl();
 
             /** @brief Constructor which immediately sets the desired model
-            @param _algo String containing one of the desired algorithms/models
+            @param _algo String containing one of the desired models:
+                - __edsr__
+                - __espcn__
+                - __fsrcnn__
+                - __lapsrn__
              */
             DnnSuperResImpl(std::string algo);
 
             /** @brief Set desired model
-            @param _algo String containing one of the desired algorithms/models
+            @param _algo String containing one of the desired models:
+                - __edsr__
+                - __espcn__
+                - __fsrcnn__
+                - __lapsrn__
              */
             void setModel(std::string algo);
 
