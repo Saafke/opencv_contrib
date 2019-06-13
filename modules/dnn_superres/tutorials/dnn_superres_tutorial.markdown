@@ -1,4 +1,4 @@
-Super Resolution using CNNs 
+Super Resolution using CNNs {#tutorial_dnn_superres}
 ===========================
 
 # Building
