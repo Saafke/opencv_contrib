@@ -14,27 +14,54 @@
 
 namespace cv
 {
-    namespace dnn
-    {
-        namespace dnn_superres
-        {
-            //! @addtogroup dnn_superres
-            //! @{
-            class CV_EXPORTS DnnSuperResImpl
-            {   
-                private:
-                    Net net;
-                
-                public:
-                    DnnSuperResImpl();
-                    DnnSuperResImpl(std::string algo);
-                    void setModel(std::string algo);
-                    Mat upsample(Mat img, int scale);
-                    Mat upsampleBilinear(Mat img, int scale);
-                    Mat upsampleBicubic(Mat img, int scale);
-            };
-            //! @}
-        }
-    }
+namespace dnn_superres
+{
+    //! @addtogroup dnn_superres
+    //! @{
+
+    /** @brief A class to upscale images via convolutional neural networks
+     */
+    class CV_EXPORTS DnnSuperResImpl
+    {   
+        private:
+            /** @brief Net which holds the desired neural network
+             */
+            Net net;
+        
+        public:
+            /** @brief Empty constructor
+             */
+            DnnSuperResImpl();
+
+            /** @brief Constructor which immediately sets the desired model
+            @param _algo String containing one of the desired algorithms/models
+             */
+            DnnSuperResImpl(std::string algo);
+
+            /** @brief Set desired model
+            @param _algo String containing one of the desired algorithms/models
+             */
+            void setModel(std::string algo);
+
+            /** @brief Upsample via neural network
+            @param _img Image to upscale
+            @param _scale Upscale factor
+             */
+            Mat upsample(Mat img, int scale);
+
+            /** @brief Upsample via bilinear interpolation
+            @param _img Image to upscale
+            @param _scale Upscale factor
+             */
+            Mat upsampleBilinear(Mat img, int scale);
+
+            /** @brief Upsample via bicubic interpolation
+            @param _img Image to upscale
+            @param _scale Upscale factor
+             */
+            Mat upsampleBicubic(Mat img, int scale);
+    };
+    //! @}
+}
 }
 #endif
