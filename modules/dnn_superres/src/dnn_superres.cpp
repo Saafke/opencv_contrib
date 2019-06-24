@@ -6,17 +6,10 @@
 
 #include "opencv2/dnn_superres.hpp"
 
-// TODO: 
-// algo and scale to enum
-// add default picture
-// squash commits
-// fetch with opencv:master
-
 namespace cv
 {
     namespace dnn
     {
-
         namespace dnn_superres
         {   
 
