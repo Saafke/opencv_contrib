@@ -6,98 +6,93 @@
 
 #include "opencv2/dnn_superres.hpp"
 
+// TODO: 
+// algo and scale to enum
+// add default picture
+// squash commits
+// fetch with opencv:master
+
 namespace cv
 {
-    namespace dnn_superres
-    {   
+    namespace dnn
+    {
 
-        DnnSuperResImpl::DnnSuperResImpl()
-        {
-            //emtpy constructor
-        }
-
-        DnnSuperResImpl::DnnSuperResImpl(std::string algo)
+        namespace dnn_superres
         {   
-            setModel(algo);
-        }
 
-        void DnnSuperResImpl::setModel(std::string algo)
-        {   
-            std::string filename_pb;
-            std::string filename_pbtxt;
-            bool modelFlag = true;
+            DnnSuperResImpl::DnnSuperResImpl()
+            {
+                //emtpy constructor
+            }
 
-            if(algo == "espcn")
-            {
-                //filename_b = ...
-                //filename_pbtxt = ...
-            }
-            else if(algo == "lapsrn")
-            {
-                //filename_b = ...
-                //filename_pbtxt = ...
-            }
-            else if(algo == "fsrcnn")
-            {
-                //filename_b = ...
-                //filename_pbtxt = ...
-            }
-            else if(algo == "edsr")
-            {
-                //filename_b = ...
-                //filename_pbtxt = ...
-            }
-            else
+            DnnSuperResImpl::DnnSuperResImpl(std::string algo)
             {   
-                std::cout << "Algorithm is not recognized. No model set. \n";
-                modelFlag = false;
+                setModel(algo);
             }
-            
-            if(filename_pb.size() && filename_pbtxt.size())
-            {
-                net = readNetFromTensorflow(filename_pb, filename_pbtxt);
-                std::cout << "Successfully loaded model. \n"; 
-            }
-            else{
-                if(modelFlag == true)
+
+            void DnnSuperResImpl::setModel(std::string algo)
+            {   
+                std::string filename_pb;
+                std::string filename_pbtxt;
+                bool modelFlag = true;
+
+                if( algo == "espcn" )
                 {
-                    std::cout << "Requested algorithm not implemented yet. \n";
+                    //filename_b = ...
+                    //filename_pbtxt = ...
                 }
-            }   
-        }
-
-        Mat DnnSuperResImpl::upsample(Mat img, int scale)
-        {   
-            Mat new_img;
-
-            if(!net.empty())
-            {
-                //get blob
-                Mat blob = blobFromImage (img, 1.0);
-                std::cout << "Made a blob. \n";
-            
-                //get prediction
-                net.setInput(blob);
-                new_img = net.forward();
-                std::cout << "Made a Prediction. \n";
+                else if( algo == "lapsrn" )
+                {
+                    //filename_b = ...
+                    //filename_pbtxt = ...
+                }
+                else if( algo == "fsrcnn" )
+                {
+                    //filename_b = ...
+                    //filename_pbtxt = ...
+                }
+                else if( algo == "edsr" )
+                {
+                    //filename_b = ...
+                    //filename_pbtxt = ...
+                }
+                else
+                {   
+                    std::cout << "Algorithm is not recognized. No model set. \n";
+                    modelFlag = false;
+                }
+                
+                if( filename_pb.size() && filename_pbtxt.size() )
+                {
+                    net = readNetFromTensorflow(filename_pb, filename_pbtxt);
+                    std::cout << "Successfully loaded model. \n"; 
+                }
+                else{
+                    if( modelFlag == true )
+                    {
+                        std::cout << "Requested algorithm not implemented yet. \n";
+                    }
+                }   
             }
-            else
+
+            void DnnSuperResImpl::upsample(Mat img, Mat img_new, int scale)
             {   
-                std::cout << "Model not specified. Please set model via setModel(). \n";
+                if( !net.empty() )
+                {
+                    //get blob
+                    Mat blob = blobFromImage (img, 1.0);
+                    std::cout << "Made a blob. \n";
+                
+                    //get prediction
+                    net.setInput(blob);
+                    img_new = net.forward();
+                    std::cout << "Made a Prediction. \n";
+                }
+                else
+                {   
+                    std::cout << "Model not specified. Please set model via setModel(). \n";
+                }
             }
-            return new_img;
-        }
-
-        Mat DnnSuperResImpl::upsampleBilinear(Mat img, int scale)
-        {   
-            cv::resize(img, img, Size(), scale, scale, 2);
-            return img;
-        }
-
-        Mat DnnSuperResImpl::upsampleBicubic(Mat img, int scale)
-        {
-            cv::resize(img, img, Size(), scale, scale, 3);
-            return img;
         }
     }
 }

@@ -11,7 +11,7 @@
 
 /** @defgroup dnn_superres DNN used for super resolution
 
-This class contains functionality for upscaling an image via convolutional neural networks.
+This module contains functionality for upscaling an image via convolutional neural networks.
 The following four models are implemented:
 
 - EDSR
@@ -24,6 +24,8 @@ There is also functionality for simply upscaling by bilinear or bicubic interpol
 */
 
 namespace cv
+{
+namespace dnn
 {
 namespace dnn_superres
 {
@@ -70,23 +72,13 @@ namespace dnn_superres
 
             /** @brief Upsample via neural network
             @param _img Image to upscale
+            @param _img_new Destination upscaled image
             @param _scale Upscale factor
              */
-            Mat upsample(Mat img, int scale);
-
-            /** @brief Upsample via bilinear interpolation
-            @param _img Image to upscale
-            @param _scale Upscale factor
-             */
-            Mat upsampleBilinear(Mat img, int scale);
-
-            /** @brief Upsample via bicubic interpolation
-            @param _img Image to upscale
-            @param _scale Upscale factor
-             */
-            Mat upsampleBicubic(Mat img, int scale);
+            void upsample(Mat img, Mat img_new, int scale);
     };
     //! @}
+}
 }
 }
 #endif

@@ -11,13 +11,16 @@ int main(int argc, char *argv[])
 {   
     // Check for valid command line arguments, print usage
     // if insufficient arguments were given.
-    if (argc < 3) {
+    if (argc < 4) {
         cout << "usage:   Arg 1: image     | Path to image" << endl;
-        cout << "\t Arg 2: algorithm | edsr, espcn, fsrcnn or lapsrn" << endl;
+        cout << "\t Arg 2: algorithm | bilinear, bicubic, edsr, espcn, fsrcnn or lapsrn" << endl;
+        cout << "\t Arg 3: scale     | 2, 3 or 4 \n";
         return -1;
     }
+    
     string img_path = string(argv[1]);
     string algorithm = string(argv[2]);
+    int scale = atoi(argv[3]);
 
     // Load the image
     Mat img = cv::imread(img_path);
@@ -30,18 +33,19 @@ int main(int argc, char *argv[])
 
     //Make dnn super resolution instance
     DnnSuperResImpl sr;
+    
     Mat img_new;
 
     if(algorithm == "bilinear"){
-        img_new = sr.upsampleBilinear(img, 2);
+        resize(img, img_new, Size(), scale, scale, 2);
     }
     else if(algorithm == "bicubic")
     {
-        img_new = sr.upsampleBicubic(img, 2);
+        resize(img, img_new, Size(), scale, scale, 3);
     }
     else{ //one of the neural networks
         sr.setModel(algorithm);
-        img_new = sr.upsample(img, 2);
+        sr.upsample(img, img_new, 2);
     }
 
     if (img_new.empty())
